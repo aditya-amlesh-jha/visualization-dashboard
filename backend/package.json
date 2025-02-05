@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Demo backend",
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "winston": "^3.17.0",
+    "winston-loki": "^6.1.3"
+  }
+}
