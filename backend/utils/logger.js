@@ -1,14 +1,19 @@
 const winston = require('winston');
 const LokiTransport = require("winston-loki")
-const { combine, timestamp, json } = winston.format;
+const { combine, timestamp, printf } = winston.format;
+
+const myFormat = printf(({ level, message, timestamp})=>{
+    return `${timestamp} : ${level} :: [ ${message} ] `
+})
 
 const options = {
     level: process.env.LOG_LEVEL || 'info',
     format: combine(
         timestamp(),
-        json()
+        myFormat
     ),
     transports: [
+        new winston.transports.Console(),
         new LokiTransport(
             {
                 host: process.env.LOKI_HOST_ADDR || "http://localhost:3100"
