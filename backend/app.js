@@ -8,13 +8,15 @@ const app = express()
 const logger = getLogger();
 
 const PORT = process.env.PORT || 8080;
-promClient.collectDefaultMetrics();
+
+const register = new promClient.Registry();
+promClient.collectDefaultMetrics({ register });
 
 const httpRequestDurationMicroseconds = new promClient.Histogram({
     name: "http_request_duration_seconds",
     help: "Duration of HTTP requests in seconds",
     labelNames: ["method", "route", "status_code"],
-    buckets: [0.1, 0.3, 0.5, 1, 1.5, 2, 5, 500]
+    buckets: [0,1,2,3,4,5]
 });
 
 app.use(
